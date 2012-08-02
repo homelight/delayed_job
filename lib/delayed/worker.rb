@@ -122,8 +122,8 @@ module Delayed
     end
 
     def start
-      trap('TERM') { say 'Exiting...'; stop }
-      trap('INT')  { say 'Exiting...'; stop }
+      trap("TERM") { say "Raising TERM"; stop; raise SignalException.new('SIGTERM') }
+      trap("INT")  { say "Raising INT"; stop; raise SignalException.new('SIGINT') }
 
       say "Starting job worker"
 
